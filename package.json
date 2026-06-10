@@ -1,0 +1,53 @@
+{
+  "name": "just-the-type",
+  "version": "0.1.0",
+  "description": "TypeSpec emitter that emits plain TypeScript types",
+  "keywords": [
+    "typespec",
+    "typespec-emitter",
+    "typescript",
+    "codegen",
+    "types"
+  ],
+  "license": "MIT",
+  "author": "Daniel Kneip",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel-kneip/just-the-type.git"
+  },
+  "homepage": "https://github.com/daniel-kneip/just-the-type#readme",
+  "bugs": "https://github.com/daniel-kneip/just-the-type/issues",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "typespec": "./lib/main.tsp",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "sample": "tsp compile sample",
+    "prepack": "tsc"
+  },
+  "peerDependencies": {
+    "@typespec/compiler": ">=1.0.0"
+  },
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@typespec/compiler": "1.13.0",
+    "vitest": "4.1.8"
+  },
+  "packageManager": "pnpm@10.11.1"
+}
