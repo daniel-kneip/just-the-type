@@ -215,6 +215,21 @@ describe("emitTypes", () => {
     expect(result).toContain("/** The pet's name. */");
   });
 
+  it("escapes */ inside doc comments so the block does not terminate early", async () => {
+    const result = await emit(`
+      @doc("ends with */ here")
+      model Glob {
+        name: string;
+      }
+    `);
+    // The doc's "*/" must be escaped; the unescaped sequence must not survive.
+    expect(result).toContain("ends with *\\/ here");
+    expect(result).not.toContain("*/ here");
+    // Output must still be a single valid interface, not broken by an early comment close.
+    expect(result).toContain("export interface Glob {");
+    expect(result).toContain("name: string;");
+  });
+
   it("inlines intersections as merged anonymous models", async () => {
     const result = await emit(`
       model A { a: string; }

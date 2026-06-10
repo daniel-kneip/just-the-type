@@ -74,6 +74,8 @@ function importDeclarations(ctx: Context): ts.Statement[] {
   return [...ctx.imports].map(([module, names]) =>
     f.createImportDeclaration(
       undefined,
+      // First arg is the phase modifier (ImportPhaseModifierSyntaxKind), not a
+      // boolean — TypeKeyword emits `import type`. The boolean overload is deprecated.
       f.createImportClause(
         ts.SyntaxKind.TypeKeyword,
         undefined,
@@ -499,12 +501,9 @@ function inStdNamespace(type: { namespace?: Namespace }): boolean {
 function withDoc<T extends ts.Node>(ctx: Context, type: Type, node: T): T {
   const doc = getDoc(ctx.program, type);
   if (doc) {
-    ts.addSyntheticLeadingComment(
-      node,
-      ts.SyntaxKind.MultiLineCommentTrivia,
-      `* ${doc.replace(/\n/g, "\n * ")} `,
-      true,
-    );
+    // Escape "*/" so a doc comment containing it cannot terminate the block early.
+    const safe = doc.replace(/\*\//g, "*\\/").replace(/\n/g, "\n * ");
+    ts.addSyntheticLeadingComment(node, ts.SyntaxKind.MultiLineCommentTrivia, `* ${safe} `, true);
   }
   return node;
 }
