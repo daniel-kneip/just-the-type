@@ -14,25 +14,25 @@ The emitter writes a single `types.ts` to `tsp-output/just-the-type/`.
 
 ## What gets emitted
 
-| TypeSpec                                 | TypeScript                                     |
-| ---------------------------------------- | ---------------------------------------------- |
-| `model`                                  | `export interface` (with `extends`)            |
-| `model Wrapper<T>` (constraints/defaults) | generic `export interface Wrapper<T>`          |
-| `model Pets is Pet[]`                    | `export type Pets = Pet[]`                     |
-| `...Record<T>` spread                    | index signature `[key: string]: T`             |
-| `enum` (incl. spread)                    | `export enum`                                  |
-| named `union` (incl. generic)            | `export type` alias                            |
-| `op`                                     | `export type` function alias                   |
-| `interface`                              | `export interface` with method signatures      |
-| custom `scalar`                          | `export type` alias to its base primitive      |
-| doc comments / `@doc`                    | JSDoc comments                                 |
-| string templates `"a-${string}"`         | template literal types                         |
-| anonymous models, unions, intersections  | inlined structurally                           |
-| templates with `valueof` parameters      | declaration skipped, instantiations inlined    |
-| `int64` / `uint64`                       | `bigint`                                       |
-| other numerics                           | `number`                                       |
-| `bytes`                                  | `Uint8Array`                                   |
-| dates, times, `duration`, `url`          | `string`                                       |
+| TypeSpec                                  | TypeScript                                  |
+| ----------------------------------------- | ------------------------------------------- |
+| `model`                                   | `export interface` (with `extends`)         |
+| `model Wrapper<T>` (constraints/defaults) | generic `export interface Wrapper<T>`       |
+| `model Pets is Pet[]`                     | `export type Pets = Pet[]`                  |
+| `...Record<T>` spread                     | index signature `[key: string]: T`          |
+| `enum` (incl. spread)                     | `export enum`                               |
+| named `union` (incl. generic)             | `export type` alias                         |
+| `op`                                      | `export type` function alias                |
+| `interface`                               | `export interface` with method signatures   |
+| custom `scalar`                           | `export type` alias to its base primitive   |
+| doc comments / `@doc`                     | JSDoc comments                              |
+| string templates `"a-${string}"`          | template literal types                      |
+| anonymous models, unions, intersections   | inlined structurally                        |
+| templates with `valueof` parameters       | declaration skipped, instantiations inlined |
+| `int64` / `uint64`                        | `bigint`                                    |
+| other numerics                            | `number`                                    |
+| `bytes`                                   | `Uint8Array`                                |
+| dates, times, `duration`, `url`           | `string`                                    |
 
 Not represented in the output: `alias` declarations (dissolved by the TypeSpec
 checker, their targets are inlined), values/`const`, and API-metadata decorators
@@ -48,13 +48,13 @@ import "just-the-type";
 using JustTheType;
 ```
 
-| Decorator                       | Target                     | Effect                                                       |
-| ------------------------------- | -------------------------- | ------------------------------------------------------------ |
-| `@promise`                      | `op`, `interface`          | Wraps return types in `Promise<T>`                           |
-| `@readonly`                     | property, `model`          | Emits the `readonly` modifier                                 |
-| `@tsType("Date")`               | `scalar`, property         | Replaces the emitted type with raw TypeScript                 |
-| `@tsType("Dayjs", "dayjs")`     | `scalar`, property         | Same, plus `import type { Dayjs } from "dayjs";`              |
-| `@literalUnion`                 | `enum`                     | Emits `type Color = "red" \| "blue"` instead of a TS enum     |
+| Decorator                   | Target             | Effect                                                    |
+| --------------------------- | ------------------ | --------------------------------------------------------- |
+| `@promise`                  | `op`, `interface`  | Wraps return types in `Promise<T>`                        |
+| `@readonly`                 | property, `model`  | Emits the `readonly` modifier                             |
+| `@tsType("Date")`           | `scalar`, property | Replaces the emitted type with raw TypeScript             |
+| `@tsType("Dayjs", "dayjs")` | `scalar`, property | Same, plus `import type { Dayjs } from "dayjs";`          |
+| `@literalUnion`             | `enum`             | Emits `type Color = "red" \| "blue"` instead of a TS enum |
 
 `@tsType` also works on built-in scalars via augment decorators, e.g. map all
 `utcDateTime` to real `Date` objects:
