@@ -43,11 +43,11 @@
     "@typespec/compiler": ">=1.0.0"
   },
   "dependencies": {
-    "typescript": "^5.9.3"
+    "typescript": "5.9.3"
   },
   "devDependencies": {
     "@typespec/compiler": "1.13.0",
-    "vitest": "4.1.8"
+    "vitest": "4.1.9"
   },
-  "packageManager": "pnpm@10.11.1"
+  "packageManager": "pnpm@11.8.0"
 }
