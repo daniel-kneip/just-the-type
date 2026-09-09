@@ -57,14 +57,14 @@
     "@arethetypeswrong/cli": "0.18.3",
     "@eslint/js": "10.0.1",
     "@typespec/compiler": "1.13.0",
-    "@vitest/coverage-v8": "4.1.9",
+    "@vitest/coverage-v8": "5.0.0",
     "eslint": "10.5.0",
     "eslint-config-prettier": "10.1.8",
     "knip": "6.17.1",
     "prettier": "3.8.4",
     "publint": "0.3.21",
     "typescript-eslint": "8.61.1",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   },
   "packageManager": "pnpm@11.11.0"
 }
